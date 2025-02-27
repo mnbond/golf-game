@@ -425,7 +425,7 @@ class Golf {
                 left: ind * 2 * this.settings.panel.lineWidth,
                 lineWidth: this.settings.panel.lineWidth,
                 strokeStyle: this.settings.panel.lineColors[ind < this.currentBallsCount ? "active" : "nonactive"],
-                width: 0
+                width: .1
             });
         }
         
