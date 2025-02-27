@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background: #333;
+    color: #fff;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px 30px;
+    text-align: center;
+}
+
+.header .btn {
+    background: #fff;
+    border-radius: 4px;
+    color: #333;
+    display: inline-block;
+    height: 18px;
+    padding:0 5px;
+    text-align: center;
+    vertical-align: top;
+}
+
+#golf-container {
+    font-size: 0;
+    flex: 1 0 auto;
+    line-height: 0;
+}

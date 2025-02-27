@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Golf</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="css/styles.css" type="text/css" rel="stylesheet">
+    <script src="js/golf.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="header">
+        Press key <span class="btn">space</span> or tap to the screen to start.
+    </div>
+    <div id="golf-container"></div>
+    <script type="text/javascript">
+        let golf = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const containerId = "golf-container";
+            const cellSizePx = 35;
+            const speedMs = 20;
+            golf = new Golf(containerId, cellSizePx, speedMs);
+        });
+
+        window.addEventListener("resize", () => {
+            if (golf != null) golf.resize();
+        });
+    </script>
+</body>
+</html>
