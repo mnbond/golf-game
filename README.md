@@ -1,2 +1,3 @@
-# golf-game
-A small JavaScript golf game.
+# Golf game
+
+A small JavaScript golf game ⛳.
