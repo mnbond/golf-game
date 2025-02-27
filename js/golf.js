@@ -370,19 +370,37 @@ class Golf {
         const panelCorner = [this.settings.panel.margin, this.settings.panel.margin];
         const panelWidth = canvas.width - this.settings.panel.margin * 2;
         const powerBgWidth = panelWidth - this.ballsOnLevel * 2 * this.settings.panel.lineWidth;
+
+        const textCorner = [-Math.round(this.settings.panel.lineWidth / 2), this.settings.panel.lineWidth * 2];
+        const text = "Level: " + (this.currentLevel < 10 ? "0" : "") + this.currentLevel.toString();
+        
+        context.font = this.settings.panel.fontSize + "px monospace";
+        context.textBaseline = "middle";
+        context.lineCap = "round";
         
         const lines = [];
         
         // Panel background
         lines.push({
+            top: 0,
             left: 0,
             lineWidth: this.settings.panel.lineWidth * 2,
             strokeStyle: this.settings.panel.bgColor,
             width: panelWidth
         });
+
+        // Text background
+        lines.push({
+            top: textCorner[1],
+            left: textCorner[0],
+            lineWidth: this.settings.panel.lineWidth * 2,
+            strokeStyle: this.settings.panel.bgColor,
+            width: context.measureText(text).width
+        });
         
         // Power background
         lines.push({
+            top: 0,
             left: panelWidth - powerBgWidth,
             lineWidth: this.settings.panel.lineWidth,
             strokeStyle: this.settings.panel.lineColors.nonactive,
@@ -392,6 +410,7 @@ class Golf {
         // Power
         if (this.power) {
             lines.push({
+                top: 0,
                 left: panelWidth - powerBgWidth,
                 lineWidth: this.settings.panel.lineWidth,
                 strokeStyle: this.settings.panel.lineColors.active,
@@ -402,6 +421,7 @@ class Golf {
         // Balls
         for (let ind = 0; ind < this.ballsOnLevel; ind++) {
             lines.push({
+                top: 0,
                 left: ind * 2 * this.settings.panel.lineWidth,
                 lineWidth: this.settings.panel.lineWidth,
                 strokeStyle: this.settings.panel.lineColors[ind < this.currentBallsCount ? "active" : "nonactive"],
@@ -409,29 +429,19 @@ class Golf {
             });
         }
         
-        context.lineCap = "round";
-        
         // Draw lines
         for (const line of lines) {
             context.lineWidth = line.lineWidth;
             context.strokeStyle = line.strokeStyle;
             context.beginPath();
-            context.moveTo(panelCorner[0] + line.left, panelCorner[1]);
-            context.lineTo(panelCorner[0] + line.left + line.width, panelCorner[1]);
+            context.moveTo(panelCorner[0] + line.left, panelCorner[1] + line.top);
+            context.lineTo(panelCorner[0] + line.left + line.width, panelCorner[1] + line.top);
             context.stroke();
         }
         
         // Draw text
-        const textCorner = [this.settings.panel.margin - Math.round(this.settings.panel.lineWidth / 2), 
-                            this.settings.panel.margin + Math.round(this.settings.panel.lineWidth * 1.5)];
-        const text = "Level: " + (this.currentLevel < 10 ? "0" : "") + this.currentLevel.toString();
-        context.font = "bold " + this.settings.panel.fontSize + "px monospace";
-        context.textBaseline = "top";
-        context.lineWidth = this.settings.panel.lineWidth;
         context.fillStyle = this.settings.panel.lineColors.active;
-        context.strokeStyle = this.settings.panel.bgColor;
-        context.strokeText(text, textCorner[0], textCorner[1]);
-        context.fillText(text, textCorner[0], textCorner[1]);
+        context.fillText(text, panelCorner[0] + textCorner[0], panelCorner[1] + textCorner[1]);
     }
     
     resize() {
@@ -507,9 +517,9 @@ class Golf {
             },
             panel: {
                 bgColor: "#111",
-                fontSize: 12,
+                fontSize: 14,
                 lineColors: {active: "#eee", nonactive: "#333"},
-                lineWidth: 8,
+                lineWidth: 10,
                 margin: 30
             }
         };
