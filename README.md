@@ -2,6 +2,8 @@
 
 A small JavaScript golf game ⛳. View demo here: [codepen.io](https://codepen.io/mnbond/full/VYwmVPX).
 
+![Screenshots](./screenshots/level-10.png)
+
 ## Instructions
 
 1. Add JavaScript code containing class `Golf` in an HTML document:
